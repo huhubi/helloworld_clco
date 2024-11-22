@@ -1,2 +1,3 @@
 config:
-  webapp:runtime: PYTHON:3.9
+  webapp:runtime: "PYTHON:3.11"
+  azure-python-webapp:webapp_runtime: "PYTHON:3.11"

@@ -3,4 +3,5 @@ config:
   azure:location: eastus
   webapp:appName: "my-flask-app"
   webapp:sku: "F1"  # Free tier
-  webapp:runtime: "PYTHON:3.9"
+  webapp_runtime: "PYTHON|3.11"
+  azure-python-webapp:webapp_runtime: "PYTHON|3.11"
