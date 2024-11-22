@@ -1,0 +1,6 @@
+# Pulumi.dev.yaml
+config:
+  azure:location: eastus
+  webapp:appName: "my-flask-app"
+  webapp:sku: "F1"  # Free tier
+  webapp:runtime: "PYTHON:3.9"

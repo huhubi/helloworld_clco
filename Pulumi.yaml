@@ -1,0 +1,3 @@
+# Pulumi.yaml
+name: azure-python-webapp
+runtime: python

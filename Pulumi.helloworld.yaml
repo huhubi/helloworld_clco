@@ -1,0 +1,2 @@
+config:
+  webapp:runtime: PYTHON:3.9
