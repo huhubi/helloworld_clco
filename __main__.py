@@ -1,9 +1,9 @@
 import pulumi
 from pulumi_azure_native import resources, storage, web
 from pulumi import AssetArchive, FileArchive
-
+from pulumi_command import local
 # Create an Azure Resource Group
-resource_group = resources.ResourceGroup("resource_group", location="West Europe")
+resource_group = resources.ResourceGroup("resource_group", location="eastasia")
 
 # Create a Storage Account
 storage_account = storage.StorageAccount(
@@ -67,7 +67,13 @@ web_app = web.WebApp(
     ),
 )
 
+
 # Export outputs
-pulumi.export("resource_group_name", resource_group.name)
-pulumi.export("web_app_url", web_app.default_host_name)
-pulumi.export("blob_url", blob_url)
+#pulumi.export("resource_group_name", resource_group.name)
+pulumi.export("web_app_url", pulumi.Output.concat("http://", web_app.default_host_name))
+#pulumi.export("blob_url", blob_url)
+pulumi.export("scm_web_app_url", pulumi.Output.concat("http://", web_app.default_host_name.apply(lambda name: name.replace(".azurewebsites.net", ".scm.azurewebsites.net"))))
+pulumi.export("log_tail_command", pulumi.Output.all(web_app.name, resource_group.name).apply(lambda args: f"az webapp log tail --name {args[0]} --resource-group {args[1]}"))
+
+# Log the web app URL to the info column
+web_app.default_host_name.apply(lambda url: pulumi.log.info(f"Web App URL: http://{url}"))
